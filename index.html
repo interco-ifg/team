@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Interco — Team</title>
+  <meta name="description" content="Interco team page — IFG corporate style. Responsive grid, LinkedIn links, dark mode." />
+  <link rel="icon" href="https://www.ifg.id/images/ifg/icon-ifg.png" type="image/png" />
+  <!-- Inter font + Tailwind + Lucide -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .card-enter { opacity: 0; transform: translateY(12px); }
+    .card-enter-to { opacity: 1; transform: translateY(0); transition: all .36s cubic-bezier(.16,.8,.25,1); }
+    .card-hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(15,23,42,0.08); transition: transform .28s ease, box-shadow .28s ease; }
+    /* small avatar border in dark mode */
+    .avatar { border: 3px solid rgba(255,255,255,0.06); }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-[#0b0b0c] dark:text-gray-100 transition-colors duration-300">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-[#0b0b0c]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="https://www.ifg.id/images/ifg/serong-red.png" alt="Interco / IFG logo" class="h-10" />
+        <div>
+          <div class="text-xl font-semibold text-[#E1261C]">Interco</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Team</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- theme switch -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">Mode</span>
+          <button id="themeSwitch" aria-label="Toggle theme" class="relative inline-flex h-7 w-14 bg-gray-200 rounded-full p-1 dark:bg-gray-700">
+            <span id="themeKnob" class="inline-block w-5 h-5 bg-white rounded-full shadow transform transition-transform"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <section class="mb-8">
+      <h1 class="text-3xl font-extrabold">Meet the Team</h1>
+      <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl">Our team at Interco — experienced professionals across product, design, and engineering. Connect on LinkedIn.</p>
+    </section>
+
+    <!-- Team grid -->
+    <section id="teamGrid" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Cards populated by JS -->
+    </section>
+
+    <footer class="mt-12 text-sm text-gray-500 dark:text-gray-400 text-center">
+      © Interco • Indonesia Financial Group (IFG)
+    </footer>
+  </main>
+
+<script>
+  // Dummy team data (you can replace names/photos/links later)
+  const team = [
+    { name: "Andi Pratama", role: "Project Manager", linkedin: "https://www.linkedin.com/in/andi-pratama", photo: "https://i.pravatar.cc/300?img=12" },
+    { name: "Sari Utami", role: "Lead UX Designer", linkedin: "https://www.linkedin.com/in/sari-utami", photo: "https://i.pravatar.cc/300?img=32" },
+    { name: "Budi Santoso", role: "Senior Developer", linkedin: "https://www.linkedin.com/in/budi-santoso", photo: "https://i.pravatar.cc/300?img=5" },
+    { name: "Maya Lestari", role: "Product Owner", linkedin: "https://www.linkedin.com/in/maya-lestari", photo: "https://i.pravatar.cc/300?img=15" },
+    { name: "Ronaldo Hari", role: "Data Engineer", linkedin: "https://www.linkedin.com/in/ronaldo-hari", photo: "https://i.pravatar.cc/300?img=25" },
+    { name: "Dina Prameswari", role: "Quality Engineer", linkedin: "https://www.linkedin.com/in/dina-prameswari", photo: "https://i.pravatar.cc/300?img=7" },
+    { name: "Eka Nugraha", role: "DevOps Engineer", linkedin: "https://www.linkedin.com/in/eka-nugraha", photo: "https://i.pravatar.cc/300?img=8" },
+    { name: "Lina Rahma", role: "People & Culture", linkedin: "https://www.linkedin.com/in/lina-rahma", photo: "https://i.pravatar.cc/300?img=18" },
+    { name: "Tommy Wijaya", role: "Frontend Engineer", linkedin: "https://www.linkedin.com/in/tommy-wijaya", photo: "https://i.pravatar.cc/300?img=20" }
+  ];
+
+  const grid = document.getElementById('teamGrid');
+
+  function createCard(member, i){
+    const card = document.createElement('article');
+    card.className = 'bg-white dark:bg-[#111827] rounded-2xl p-5 flex flex-col items-center text-center shadow-sm card-enter';
+    card.innerHTML = `
+      <div class="w-28 h-28 rounded-full overflow-hidden mb-4 avatar">
+        <img src="${member.photo}" alt="${member.name}" class="w-full h-full object-cover" />
+      </div>
+      <h3 class="text-lg font-semibold">${member.name}</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${member.role}</p>
+      <a href="${member.linkedin}" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 text-sm text-[#0A66C2] hover:underline">
+        <i data-lucide="linkedin" class="w-4 h-4"></i> View LinkedIn
+      </a>
+    `;
+    // hover animation
+    card.addEventListener('mouseenter', ()=>{ card.classList.add('card-hover'); });
+    card.addEventListener('mouseleave', ()=>{ card.classList.remove('card-hover'); });
+
+    // staggered entrance
+    setTimeout(()=> {
+      card.classList.remove('card-enter');
+      card.classList.add('card-enter-to');
+    }, i * 80);
+
+    return card;
+  }
+
+  function renderTeam(){
+    grid.innerHTML = '';
+    team.forEach((m, i) => grid.appendChild(createCard(m, i)));
+    try{ lucide.createIcons(); }catch(e){}
+  }
+
+  // theme toggle (persisted)
+  const themeSwitch = document.getElementById('themeSwitch');
+  const themeKnob = document.getElementById('themeKnob');
+  (function initTheme(){
+    const saved = localStorage.getItem('interco_theme') || 'light';
+    if(saved === 'dark'){ document.documentElement.classList.add('dark'); themeKnob.style.transform = 'translateX(22px)'; }
+    themeSwitch.addEventListener('click', ()=>{
+      const isDark = document.documentElement.classList.toggle('dark');
+      themeKnob.style.transform = isDark ? 'translateX(22px)' : 'translateX(0)';
+      localStorage.setItem('interco_theme', isDark ? 'dark' : 'light');
+    });
+  })();
+
+  // initial render
+  renderTeam();
+
+  // make grid responsive to image load (ensure lucide icons render)
+  window.addEventListener('load', ()=> { try{ lucide.createIcons(); }catch(e){} });
+</script>
+</body>
+</html>
